@@ -35,7 +35,7 @@ valveUpdate = ''
 valves = {
     'Valve 1': 'closed', 
     'Valve 2': 'closed', 
-    'Valve 3': 'closed', 
+    'Valve 3': 'closed'
     }
 
 # Make columns for UX design
