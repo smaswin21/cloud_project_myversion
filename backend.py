@@ -1,5 +1,5 @@
-from azure.iot.device import IoTHubDeviceClient
-import RPi.GPIO as GPIO
+# from azure.iot.device import IoTHubDeviceClient
+# import RPi.GPIO as GPIO
 
 # Replace with your device's connection string
 CONNECTION_STRING = "Your_Device_Connection_String"
