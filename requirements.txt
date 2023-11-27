@@ -1,2 +1,2 @@
-pip install RPi.GPIO
-
+# pip install RPi.GPIO
+# pip install azure.iot.device
