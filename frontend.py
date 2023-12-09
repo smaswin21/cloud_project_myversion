@@ -1,75 +1,63 @@
 import streamlit as st
-import time
+from azure.iot.device import IoTHubDeviceClient, Message
+# time is not typically recommended for use in Streamlit for delaying operations
+# Streamlit's rerun feature should be used instead
 
-# HEAD ----------------------------
+# HEAD
 st.set_page_config(
-    page_title="Valve Dashboard",
+    page_title="pipe Dashboard",
     page_icon="👋",
 )
 
-
-# BODY ----------------------------
-
-# Function to send command to the backend
-def send_valve_command(valveId, command):
-    # Here you would add the logic to send a command to your backend,
-    # which would then communicate with Azure IoT Hub
-    pass
-
-def generate_temporary_success(message, seconds):
-    # generate the success
-    successContainer = st.success(message)
-    # wait amout of time
-    time.sleep(seconds)
-    # elimilate success
-    successContainer.empty()
-
-# tab title
-st.title('Valve Control Dashboard')
-
-# create the valveUpdate variable to 
-# avoid a specific bug
-valveUpdate = ''
-
-# declare the variables for valve status
-valves = {
-    'Valve 1': 'closed', 
-    'Valve 2': 'closed', 
-    'Valve 3': 'closed'
+pipeCS = {
+    "pipe1": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe1;SharedAccessKey=X6Oo3r2SVWwRwYWiS0ET7PUoT1/s4CmnOAIoTH2xT2U=",
+    "pipe2": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe2;SharedAccessKey=pzmTn3PRi49eGuJNm2lSlC4kQWANeVkDDAIoTLl/1nU=",
+    "pipe3": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe3;SharedAccessKey=AYo7hsVNU9+4IZ714Noan+/I6iFPVWI4cAIoTEpl7LM=",
+    "pipe4": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe4;SharedAccessKey=inTE8MKX21YwVHpoGYBEHnMrKGlNMGB5qAIoTBailL0="
     }
 
+# declare the variables for pipe status
+pipeStates = {
+    'pipe1': 'closed', 
+    'pipe2': 'closed', 
+    'pipe3': 'closed', 
+    'pipe4': 'closed'
+}
+
+def message_to_hub(whichPipe: str, message: str):
+    # connecting to iot hub directly from streamlit
+    client = IoTHubDeviceClient.create_from_connection_string(pipeCS[whichPipe])
+    client.connect()
+    # sending message
+    client.send_message(Message(message))
+    st.success(f"\nMessage {message} sent to {whichPipe}\n")
+    client.disconnect()
+
+
+# BODY
+# tab title
+st.title('Pipe Control Dashboard')
 # Make columns for UX design
 col1, col2 = st.columns((1, 1))
 
 # LEFT COL. The selectbox and Open / Close buttons
 with col1:
-    # Create a selectbox element which contains the valves
-    valveId = st.selectbox('Select Valve', ['Valve 1', 'Valve 2', 'Valve 3'])
-    btnOpenValve = st.button('Open Valve')
-    btnCloseValve = st.button('Close Valve')
+    pipeId = st.selectbox('Select Pipe', list(pipeStates.keys()))
+    # st.markdown(f'**State of {pipeId}: {pipeStates[pipeId]}**')
 
-    # the open button is pressed
-    if btnOpenValve:
-        # send_valve_command() is used in the backend
-
-        send_valve_command(valveId, 'open')
-        # set the corresponding valve to open
-        valves[valveId] = 'open'
-        valveUpdate = f'The valve is {valves[valveId]}'
-    
-    # the close button is pressed
-    if btnCloseValve:
-        # send_valve_command() is used in the backend
-        
-        send_valve_command(valveId, 'closed')
-        # set the corresponding valve to closed
-        valves[valveId] = 'closed'
-        valveUpdate = f'The valve is {valves[valveId]}'
-    
-# RIGHT COL. Valve status and success message
+# RIGHT COL. pipe status and success message
 with col2:
-    # print the status of the corresponding valve
-    st.markdown(f'**Status: {valves[valveId]}**')
-    # print success message after either button
-    generate_temporary_success(valveUpdate, 1)
+    btnOpenPipe = st.button('Open pipe')
+    btnClosePipe = st.button('Close pipe')
 
+    # Check if a button was pressed
+    if btnOpenPipe or btnClosePipe:
+        newState = 'open' if btnOpenPipe else 'closed'
+        # send state update to iot hub
+        message_to_hub(pipeId, newState)
+        pipeStates[pipeId] = newState
+        # st.session_state['pipeUpdate'] = f'The {pipeId} is now {new_status}'
+    
+    # Display success message if available
+    if 'pipeUpdate' in st.session_state:
+        st.success(st.session_state['pipeUpdate'])
