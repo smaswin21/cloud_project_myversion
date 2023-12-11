@@ -8,11 +8,6 @@ st.set_page_config(
     page_icon="👋",
 )
 
-valve1_secret = os.getenv('valve1')
-valve2_secret = os.getenv('valve2')
-valve3_secret = os.getenv('valve3')
-valve4_secret = os.getenv('valve4')
-
 pipeCS = {
     "pipe1": "HostName=watervalve.azure-devices.net;DeviceId=pipe1;SharedAccessKey=kAAaYB/f+A9NwCSnfUCsbKMp9soTpgwAeAIoTGFWyAM=",
     "pipe2": "HostName=watervalve.azure-devices.net;DeviceId=pipe2;SharedAccessKey=gSAJds4rqKRwT2TvOT6XUUObPVcYWshJeAIoTEvNpwo=",
