@@ -1,11 +1,18 @@
 import streamlit as st
 from azure.iot.device import IoTHubDeviceClient, Message
 import os
+
 # HEAD
 st.set_page_config(
     page_title="pipe Dashboard",
     page_icon="👋",
 )
+
+valve1_secret = os.getenv('valve1')
+valve2_secret = os.getenv('valve2')
+valve3_secret = os.getenv('valve3')
+valve4_secret = os.getenv('valve4')
+
 
 pipeCS = {
     "pipe1": "HostName=watervalve.azure-devices.net;DeviceId=pipe1;SharedAccessKey=kAAaYB/f+A9NwCSnfUCsbKMp9soTpgwAeAIoTGFWyAM=",
