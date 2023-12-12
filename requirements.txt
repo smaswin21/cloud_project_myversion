@@ -1,5 +1,4 @@
 azure-iot-device
 streamlit
-
 azure-storage-blob
 RPi.GPIO
