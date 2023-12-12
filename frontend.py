@@ -1,6 +1,5 @@
 import streamlit as st
 from azure.iot.device import IoTHubDeviceClient, Message
-import os
 
 # HEAD
 st.set_page_config(
