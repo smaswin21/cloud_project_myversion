@@ -10,10 +10,10 @@ st.set_page_config(
 )
 
 pipeCS = {
-    "pipe1": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe1;SharedAccessKey=X6Oo3r2SVWwRwYWiS0ET7PUoT1/s4CmnOAIoTH2xT2U=",
-    "pipe2": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe2;SharedAccessKey=pzmTn3PRi49eGuJNm2lSlC4kQWANeVkDDAIoTLl/1nU=",
-    "pipe3": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe3;SharedAccessKey=AYo7hsVNU9+4IZ714Noan+/I6iFPVWI4cAIoTEpl7LM=",
-    "pipe4": "HostName=fa-35530721.azure-devices.net;DeviceId=pipe4;SharedAccessKey=inTE8MKX21YwVHpoGYBEHnMrKGlNMGB5qAIoTBailL0="
+    "pipe1": "HostName=watervalve.azure-devices.net;DeviceId=pipe1;SharedAccessKey=kAAaYB/f+A9NwCSnfUCsbKMp9soTpgwAeAIoTGFWyAM=",
+    "pipe2": "HostName=watervalve.azure-devices.net;DeviceId=pipe2;SharedAccessKey=gSAJds4rqKRwT2TvOT6XUUObPVcYWshJeAIoTEvNpwo=",
+    "pipe3": "HostName=watervalve.azure-devices.net;DeviceId=pipe3;SharedAccessKey=c/GiJjUjA/IHLK+noHIrcOdT9c0r6+YCIAIoTMg4f9U=",
+    "pipe4": "HostName=watervalve.azure-devices.net;DeviceId=pipe4;SharedAccessKey=bR/XNH2R9yVxpG3ghwgeYI2nQ5XoJqNuRAIoTJM2tBw="
     }
 
 # declare the variables for pipe status
